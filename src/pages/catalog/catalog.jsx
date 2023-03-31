@@ -114,16 +114,22 @@ const Catalog = () => {
         <div className="catalog__selectore">
           <div className="catalog__selectore-paginate">
             <button
-              className="catalog__selectore-paginate_allBack"
-              onClick={() => setCurrentPage(1)}
-            ></button>
-            <button
               className="catalog__selectore-paginate_left"
               onClick={handlePrevPage}
               disabled={currentPage === 1}
             ></button>
+            <span style={{display:`${currentPage !== 1 ? 'block' : 'none'}`}} onClick={() => setCurrentPage(currentPage - 1)}>{`${
+              currentPage !== 1 ? currentPage - 1 : ""
+            }`}</span>
+            <span className="catalog__selectore-paginate_active">{currentPage}</span>
+            <span onClick={() => setCurrentPage(currentPage + 1)}>
+              {currentPage + 1}
+            </span>
             <span>
-              {currentPage}
+              ...
+            </span>
+            <span>
+              99+
             </span>
             <button
               className="catalog__selectore-paginate_right"
