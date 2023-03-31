@@ -5,7 +5,17 @@ import { CustomContext } from "../../utils/context";
 import arrow from "../../assets/catalog/Arrow.svg";
 
 const Catalog = () => {
-  const { genre, getProducts, setPage, page,handleNextPage,handlePrevPage,endIndex,currentPage,setCurrentPage } = useContext(CustomContext);
+  const {
+    genre,
+    getProducts,
+    setPage,
+    page,
+    handleNextPage,
+    handlePrevPage,
+    endIndex,
+    currentPage,
+    setCurrentPage,
+  } = useContext(CustomContext);
   const [show, setShow] = useState(true);
   const { products } = useContext(CustomContext);
 
@@ -101,18 +111,25 @@ const Catalog = () => {
             <Card products={products} />
           </div>
         </div>
-        <div>
-          <div className="pagination">
-            <button onClick={() => setCurrentPage(1)}>{'<<'}</button>
-            <button onClick={handlePrevPage} disabled={currentPage === 1}>
-              Prev
-            </button>
+        <div className="catalog__selectore">
+          <div className="catalog__selectore-paginate">
             <button
+              className="catalog__selectore-paginate_allBack"
+              onClick={() => setCurrentPage(1)}
+            ></button>
+            <button
+              className="catalog__selectore-paginate_left"
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+            ></button>
+            <span>
+              {currentPage}
+            </span>
+            <button
+              className="catalog__selectore-paginate_right"
               onClick={handleNextPage}
               disabled={endIndex >= products.data.length}
-            >
-              Next
-            </button>
+            ></button>
           </div>
         </div>
       </div>
