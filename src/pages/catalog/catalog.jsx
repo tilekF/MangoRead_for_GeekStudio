@@ -118,19 +118,26 @@ const Catalog = () => {
               onClick={handlePrevPage}
               disabled={currentPage === 1}
             ></button>
-            <span style={{display:`${currentPage !== 1 ? 'block' : 'none'}`}} onClick={() => setCurrentPage(currentPage - 1)}>{`${
-              currentPage !== 1 ? currentPage - 1 : ""
-            }`}</span>
-            <span className="catalog__selectore-paginate_active">{currentPage}</span>
-            <span onClick={() => setCurrentPage(currentPage + 1)}>
-              {currentPage + 1}
+            <span
+              style={{ display: `${currentPage !== 1 ? "block" : "none"}` }}
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >{`${currentPage !== 1 ? currentPage - 1 : ""}`}</span>
+            <span className="catalog__selectore-paginate_active">
+              {currentPage}
             </span>
-            <span>
-              ...
+            <span onClick={() => setCurrentPage(currentPage + 1)}
+            style={{display: `${ endIndex >= products.data.length ? "none" : "block"}`}}
+            >
+              {`${ endIndex >= products.data.length ? '' : currentPage + 1}`}
             </span>
-            <span>
-              99+
+            <span
+             onClick={() => setCurrentPage(currentPage + 2)}
+             style={{display: `${ endIndex >= products.data.length ? "none" : "block"}`}}
+             >
+              {currentPage + 2}
             </span>
+            <span>...</span>
+            <span>99+</span>
             <button
               className="catalog__selectore-paginate_right"
               onClick={handleNextPage}
