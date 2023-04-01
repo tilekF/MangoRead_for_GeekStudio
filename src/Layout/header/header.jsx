@@ -1,15 +1,17 @@
 import React, { useContext, useState } from "react";
 import logo from "../../assets/header/Logo.svg";
 import { CustomContext } from "../../utils/context";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [active, setActive] = useState(false);
-  const { searchQuery,setSearchQuery} = useContext(CustomContext)
+  const { searchQuery, setSearchQuery, registrate, setRegistrate } =
+    useContext(CustomContext);
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
-  
+
   return (
     <header className="header">
       <div className="container">
@@ -27,7 +29,10 @@ const Header = () => {
               </ul>
             </li>
             <li>
-              <form className="header__nav-inner_search" onSubmit={(e) => e.preventDefault()}>
+              <form
+                className="header__nav-inner_search"
+                onSubmit={(e) => e.preventDefault()}
+              >
                 <label
                   className={`header__nav-inner_search-loupe ${
                     active ? "active" : ""
@@ -60,8 +65,19 @@ const Header = () => {
               </form>
             </li>
             <li className="header__nav-inner_login">
-              <button className="header__nav-inner_login-logIn" type="button">Войти</button>
-              <button className="header__nav-inner_login-registrate">Регистрация</button>
+              <button
+                onClick={() => setRegistrate("log")}
+                className="header__nav-inner_login-logIn"
+                type="button"
+              >
+                <Link to="/registrate">Войти</Link>
+              </button>
+              <button
+                className="header__nav-inner_login-registrate"
+                onClick={() => setRegistrate("reg")}
+              >
+                <Link to='./registrate'>Регистрация</Link>
+              </button>
             </li>
           </ul>
         </nav>

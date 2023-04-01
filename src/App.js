@@ -4,6 +4,7 @@ import Home from "./pages/home/home";
 import "./scss/style.scss";
 import Info from "./pages/Info/info";
 import MakeInfo from "./pages/Info/makeInfo";
+import Registrate from "./pages/Registrate/registrate";
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
           <Route
           path="/Info"
           element={<MakeInfo/>}
+          />
+          <Route
+          path="/registrate"
+          element={<Registrate/>}
           />
         </Route>
       </Routes>

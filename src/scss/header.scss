@@ -1,6 +1,6 @@
 .header {
-  background: #Fff;
-  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15); 
+  background: #fff;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
   &__nav {
     &-inner {
       display: flex;
@@ -67,19 +67,25 @@
             background-color: #ad02e0;
             box-shadow: 0px 0px 20px #ad02e0;
             color: #ffffff;
-            transition:all 500ms ease;
+            transition: all 500ms ease;
           }
           &:active {
             background-color: #740994;
             transition: all 0s;
             box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.25);
-
+          }
+          & a {
+            width: 190px;
+            color: #000;
+            &:hover {
+              color: #fff;
+            }
           }
         }
         &-registrate {
           width: 190px;
           height: 43px;
-          background-color: #AD02E0;
+          background-color: #ad02e0;
           color: #ffffff;
           border-radius: 8px;
           border: none;
@@ -92,12 +98,16 @@
             background-color: #ad02e0;
             box-shadow: 0px 0px 20px #ad02e0;
             color: #ffffff;
-            transition:all 500ms ease;
+            transition: all 500ms ease;
           }
           &:active {
             background-color: #740994;
             transition: all 0s;
             box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.25);
+          }
+          & a {
+            width: 190px;
+            color: #fff;
           }
         }
       }

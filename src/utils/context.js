@@ -5,6 +5,7 @@ export const CustomContext = createContext();
 
 const Context = (props) => {
   const [products, setProducts] = useState({ data: [], error: "" });
+  const [profile, setProfile] = useState({ data: [], error: "" });
   const [genre, setGenre] = useState("");
   const maxItemsToShow = 12;
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,7 +14,7 @@ const Context = (props) => {
   const endIndex = startIndex + maxItemsToShow;
   const [searchQuery, setSearchQuery] = useState("");
   const [checkboxes, setCheckboxes] = useState({});
-
+  const [registrate, setRegistrate] = useState("log");
 
   const getProducts = () => {
     axios(
@@ -23,10 +24,19 @@ const Context = (props) => {
       .catch((error) => setProducts({ ...products, error: error }));
   };
 
+  const getProfile = () => {
+    axios(`http://134.122.75.14:8666/api/auth/profile/`)
+      .then(({ data }) => setProfile({ ...profile, data: data }))
+      .catch((error) => setProfile({ ...profile, error: error }));
+  };
+
   useEffect(() => {
-    getProducts()
+    getProducts();
   }, [searchQuery]);
 
+  useEffect(() => {
+    getProfile()
+  },[])
   const changeGenre = (value) => {
     setGenre(value);
     setCheckboxes({ ...checkboxes, [value]: !checkboxes[value] });
@@ -50,6 +60,9 @@ const Context = (props) => {
   };
 
   const value = {
+    getProfile,
+    setRegistrate,
+    setProfile,
     setCheckboxes,
     setSearchQuery,
     handleNextPage,
@@ -60,7 +73,9 @@ const Context = (props) => {
     setPage,
     setGenre,
     getProducts,
+    profile,
     checkboxes,
+    registrate,
     searchQuery,
     startIndex,
     maxItemsToShow,
