@@ -1,12 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { CustomContext } from "../../utils/context";
 
 const SideBarItem = ({ text, value }) => {
-  const { changeGenre } = useContext(CustomContext);
+  const { changeGenre, setCurrentPage,checkboxes } = useContext(CustomContext);
   return (
     <form>
-      <label className="sidebarItem">
-        <input className="check" onChange={() => changeGenre(value)} type="checkbox" />
+      <label className="sidebarItem" onClick={() => setCurrentPage(1)}>
+        <input
+          className="check"
+          onChange={() => changeGenre(value)}
+          checked={!!checkboxes[value]}
+          type="checkbox"
+        />
         <span></span>
         <p>{text}</p>
       </label>

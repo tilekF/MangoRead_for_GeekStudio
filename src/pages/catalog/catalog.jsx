@@ -125,15 +125,24 @@ const Catalog = () => {
             <span className="catalog__selectore-paginate_active">
               {currentPage}
             </span>
-            <span onClick={() => setCurrentPage(currentPage + 1)}
-            style={{display: `${ endIndex >= products.data.length ? "none" : "block"}`}}
+            <span
+              onClick={() => setCurrentPage(currentPage + 1)}
+              style={{
+                display: `${
+                  endIndex >= products.data.length ? "none" : "block"
+                }`,
+              }}
             >
-              {`${ endIndex >= products.data.length ? '' : currentPage + 1}`}
+              {`${endIndex >= products.data.length ? "" : currentPage + 1}`}
             </span>
             <span
-             onClick={() => setCurrentPage(currentPage + 2)}
-             style={{display: `${ endIndex >= products.data.length ? "none" : "block"}`}}
-             >
+              onClick={() => setCurrentPage(currentPage + 2)}
+              style={{
+                display: `${
+                  endIndex >= products.data.length ? "none" : "block"
+                }`,
+              }}
+            >
               {currentPage + 2}
             </span>
             <span>...</span>

@@ -3,7 +3,8 @@ import { CustomContext } from "../../utils/context";
 import TextTruncate from "react-text-truncate";
 
 const Card = ({ products }) => {
-  const { endIndex, startIndex } = useContext(CustomContext);
+  const { endIndex, startIndex } =
+    useContext(CustomContext);
 
   return (
     <div className="card">

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useState,useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const CustomContext = createContext();
 
@@ -12,11 +12,11 @@ const Context = (props) => {
   const startIndex = (currentPage - 1) * maxItemsToShow;
   const endIndex = startIndex + maxItemsToShow;
   const [searchQuery, setSearchQuery] = useState("");
-  
+  const [checkboxes, setCheckboxes] = useState({});
 
   const getProducts = () => {
     axios(
-      `http://134.122.75.14:8666/api/v1/manga?type=${genre}&search=${searchQuery}`
+      `http://134.122.75.14:8666/api/v1/manga?type=${genre}&search=${searchQuery}&checkboxes=${selectedCheckboxes}`
     )
       .then(({ data }) => setProducts({ ...products, data: data }))
       .catch((error) => setProducts({ ...products, error: error }));
@@ -25,10 +25,16 @@ const Context = (props) => {
   useEffect(() => {
     getProducts();
   }, [searchQuery]);
+
   const changeGenre = (value) => {
     setGenre(value);
+    setCheckboxes({ ...checkboxes, [value]: !checkboxes[value] });
   };
 
+  const selectedCheckboxes = Object.entries(checkboxes)
+    .filter(([key, value]) => value)
+    .map(([key]) => key)
+    .join(",");
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -43,6 +49,7 @@ const Context = (props) => {
   };
 
   const value = {
+    setCheckboxes,
     setSearchQuery,
     handleNextPage,
     handlePrevPage,
@@ -52,6 +59,7 @@ const Context = (props) => {
     setPage,
     setGenre,
     getProducts,
+    checkboxes,
     searchQuery,
     startIndex,
     maxItemsToShow,
