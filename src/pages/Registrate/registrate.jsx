@@ -13,9 +13,10 @@ const Registrate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setUsername('')
-    setEmail('')
-    setPassword('')
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setImage("");
     try {
       const response = await fetch("http://localhost:3001/users", {
         method: "POST",
@@ -29,6 +30,12 @@ const Registrate = () => {
     } catch (error) {
       console.error("Registration failed:", error);
     }
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+    setImage(file.name);
   };
   return (
     <section className="registrate">
@@ -53,10 +60,7 @@ const Registrate = () => {
                   <input
                     type="file"
                     placeholder="Выберите фото"
-                    onChange={(event) => {
-                      console.log(event.target.files[0]);
-                      setSelectedImage(event.target.files[0]);
-                    }}
+                    onChange={handleImageChange}
                   />
                   <span>ДОБАВИТЬ ФОТО</span>
                 </label>

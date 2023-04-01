@@ -8,11 +8,18 @@
       "id": 1
     },
     {
-      "username": "Nazi",
-      "email": "0000",
-      "password": "05552040555",
+      "username": "sdsdsd",
+      "email": "232323",
+      "password": "sdsdsds",
       "image": "",
       "id": 2
+    },
+    {
+      "username": "asas",
+      "email": "0000",
+      "password": "asasasasasa",
+      "image": "Vector 3.svg",
+      "id": 3
     }
   ]
 }
