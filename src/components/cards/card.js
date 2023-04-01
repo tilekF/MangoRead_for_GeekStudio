@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
 import { CustomContext } from "../../utils/context";
 import TextTruncate from "react-text-truncate";
+import { Link } from "react-router-dom";
 
 const Card = ({ products }) => {
-  const { endIndex, startIndex } =
-    useContext(CustomContext);
+  const { endIndex, startIndex } = useContext(CustomContext);
 
   return (
     <div className="card">
       {products.data.slice(startIndex, endIndex).map((product) => (
-        <div
+        <Link
+          to={`/Info`}
           className="card__block"
           style={{
             background: `linear-gradient(180deg, rgba(0, 0, 0, 0) 5.73%, rgba(0, 0, 0, 0.5) 66.15%),url(${product.image})center, no-repeat`,
@@ -20,11 +21,11 @@ const Card = ({ products }) => {
             <h2>Год: {product.issue_year}</h2>
             <TextTruncate
               className="card__block-title"
-              line={3}
+              line={2.5}
               text={product.ru_name}
             />
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

@@ -27,7 +27,7 @@ const Header = () => {
               </ul>
             </li>
             <li>
-              <form className="header__nav-inner_search">
+              <form className="header__nav-inner_search" onSubmit={(e) => e.preventDefault()}>
                 <label
                   className={`header__nav-inner_search-loupe ${
                     active ? "active" : ""

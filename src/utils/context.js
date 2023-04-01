@@ -14,6 +14,7 @@ const Context = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [checkboxes, setCheckboxes] = useState({});
 
+
   const getProducts = () => {
     axios(
       `http://134.122.75.14:8666/api/v1/manga?type=${genre}&search=${searchQuery}&checkboxes=${selectedCheckboxes}`
@@ -23,7 +24,6 @@ const Context = (props) => {
   };
 
   useEffect(() => {
-    getProducts();
   }, [searchQuery]);
 
   const changeGenre = (value) => {
