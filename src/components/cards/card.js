@@ -2,14 +2,18 @@ import React, { useContext } from "react";
 import { CustomContext } from "../../utils/context";
 import TextTruncate from "react-text-truncate";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { MakeAdd } from "../../redux/reducers/data";
 
 const Card = ({ products }) => {
+  const dispatch = useDispatch();
   const { endIndex, startIndex } = useContext(CustomContext);
 
   return (
     <div className="card">
       {products.data.slice(startIndex, endIndex).map((product) => (
         <Link
+          onClick={() => dispatch(MakeAdd("makeOrder", product))}
           to={`/Info`}
           className="card__block"
           style={{

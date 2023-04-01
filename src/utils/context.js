@@ -17,13 +17,14 @@ const Context = (props) => {
 
   const getProducts = () => {
     axios(
-      `http://134.122.75.14:8666/api/v1/manga?type=${genre}&search=${searchQuery}&checkboxes=${selectedCheckboxes}`
+      `http://134.122.75.14:8666/api/v1/manga?type=${genre}&search=${searchQuery}`
     )
       .then(({ data }) => setProducts({ ...products, data: data }))
       .catch((error) => setProducts({ ...products, error: error }));
   };
 
   useEffect(() => {
+    getProducts()
   }, [searchQuery]);
 
   const changeGenre = (value) => {

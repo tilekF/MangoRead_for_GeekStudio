@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import itinitial from './data'
+import makeOrder from '../reducers/data'
 const rootReducers = () => combineReducers({
-    itinitial
+    makeOrder,
 })
 
 export default rootReducers;

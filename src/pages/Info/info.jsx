@@ -1,21 +1,51 @@
-import React, { useContext, useEffect } from "react";
-import { CustomContext } from "../../utils/context";
+import React from "react";
+import left from "../../assets/btnSelectors/left.svg";
+import { Link } from "react-router-dom";
+import defaultImage from '../../assets/error/error.jpg'
 
-const Info = () => {
-  const { getProducts,products } = useContext(CustomContext);
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-  return (
-    <>
-      {products.data.map((product) => (
-        <section key={product.id}>
-          <h2>{product.ru_name}</h2>
-        </section>
-      ))}
-    </>
-  );
+const Info = ({ products }) => {
+  try {
+    const regex = /(<([^>]+)>)/gi;
+    const result = products.description.replace(regex, "");
+    const imageUrl = products.image.replace(
+      "old-url.jpg",
+      "new-url.jpg" 
+    );
+    return (
+      <section className="info">
+        <div className="container">
+          <Link className="info__exit" to="/">
+            <img src={left} />
+            Назад
+          </Link>
+          <div className="info__head">
+            <img src={imageUrl}  onError={(e) => {e.target.src = defaultImage}} alt="Title-img" />
+            <div className="info__head-desc">
+              <h3>{products.ru_name}</h3>
+              <h2>Информация:</h2>
+              <p>
+                Тип: <span>{products.type}</span>
+              </p>
+              <p>
+                Год: <span>{products.issue_year}</span>
+              </p>
+              <p>
+                Жанр: <span>{products.genre}</span>
+              </p>
+            </div>
+          </div>
+          <div className="info__sinop">
+            <h2>Синопсис</h2>
+            <p>
+              {(products.description = products.description.replace(regex, ""))}
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  } catch (error) {
+    return null;
+  }
 };
 
 export default Info;
