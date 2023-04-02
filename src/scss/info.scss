@@ -89,13 +89,15 @@
         line-height: 42.67px;
         color: #000000;
       }
-      & a {
+      & button {
+        border: none;
         font-family: "Montserrat", sans-serif;
         cursor: pointer;
         color: #ad02e0;
         font-weight: 500;
         line-height: 21.94px;
         text-transform: uppercase;
+        background-color: transparent;
         border-radius: 8px;
         padding: 10px;
         &:hover {
@@ -133,6 +135,88 @@
           font-size: 24px;
           font-weight: 400;
           line-height: 35px;
+        }
+      }
+    }
+    &-add {
+      display: block;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.82);
+      z-index: 99;
+      width: 100%;
+      text-align: center;
+      overflow: auto;
+      &::after {
+        content: "";
+        display: inline-block;
+        font-size: 0;
+        height: 100%;
+        vertical-align: middle;
+        width: 0;
+      }
+      &_main {
+        display: inline-block;
+        width: 780px;
+        max-width: 100%;
+        background-color: transparent;
+        text-align: center;
+        vertical-align: middle;
+        position: relative;
+      }
+      &_content {
+        border-radius: 30px;
+        padding: 31px 56px;
+        background-color: #fff;
+        text-align: left;
+        &-items {
+          display: flex;
+          gap: 52px;
+          & img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+          }
+          & h2 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 35px;
+            font-weight: 400;
+            line-height: 42.67px;
+          }
+        }
+        &-ash {
+          display: flex;
+          margin-top: 60px;
+          & textarea {
+            width: 500px;
+            height: 36px;
+            outline-color: #ad02e0;
+            border-radius: 8px 0px 0px 8px; 
+            border: 1px solid #000000;
+            font-family: "Montserrat", sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 23px;
+            color: #878787;
+            padding: 10px 8.5px;
+            resize: none;
+          }
+          & button {
+            width: 160px;
+            border-radius: 0px 8px 8px 0px;
+            padding: 16px 32px;
+            background-color: #ad02e0;
+            font-family: "Montserrat", sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 19.5px;
+            color: #ffffff;
+            text-transform: uppercase;
+            border: none;
+          }
         }
       }
     }

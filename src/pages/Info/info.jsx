@@ -6,16 +6,48 @@ import defaultImage from "../../assets/error/error.jpg";
 const Info = ({ products }) => {
   const [user, setData] = useState([]);
   const [coment, setComent] = useState([]);
+  const [comentAdd, setComentAdd] = useState(false);
+  const [text, setText] = useState("");
+  const [nick, setNick] = useState("");
+  const [username, setUsername] = useState("");
+  const [image, setImage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch("http://localhost:3001/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: user[0].username,
+          nick: user[0].nick,
+          img: user[0].image,
+          text,
+        }),
+      });
+      const data = await response.json();
+      console.log("Comment added:", data);
+      setComentAdd(!comentAdd)
+      setUsername("");
+      setNick("");
+      setText("");
+      setImage("")
+    } catch (error) {
+      console.error("Comment failed:", error);
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
       const response = await fetch("http://localhost:3001/comments");
-      const user = await response.json();
+      const coment = await response.json();
 
-      setData(user);
+      setComent(coment);
     }
     fetchData();
-  }, []);
+  }, [coment]);
 
   useEffect(() => {
     async function fetchData() {
@@ -25,7 +57,7 @@ const Info = ({ products }) => {
       setData(user);
     }
     fetchData();
-  }, [user]);
+  }, []);
 
   try {
     const regex = /(<([^>]+)>)/gi;
@@ -49,9 +81,9 @@ const Info = ({ products }) => {
             <div className="info__head-desc">
               <h3>{products.ru_name}</h3>
               <h2>Информация:</h2>
-              <a>
+              <p>
                 Тип: <span>{products.type}</span>
-              </a>
+              </p>
               <p>
                 Год: <span>{products.issue_year}</span>
               </p>
@@ -69,9 +101,16 @@ const Info = ({ products }) => {
           <div className="info__comments">
             <div className="info__comments-top">
               <h2>Топ комментарий</h2>
-              <a>добавить комментарий</a>
+              <button
+                onClick={() => setComentAdd(!comentAdd)}
+                disabled={user.length === 0}
+              >
+                {user.length === 0
+                  ? "нужно войти для оставления коментария"
+                  : "добавить комментарий"}
+              </button>
             </div>
-            {user.map((user) => (
+            {coment.map((user) => (
               <div key={user.id} className="info__comments-com">
                 <img src={user.img} alt="Photo" />
                 <div className="info__comments-com_texts">
@@ -82,13 +121,62 @@ const Info = ({ products }) => {
                 </div>
               </div>
             ))}
-            <div>
-              <div>
-                <div>
-                  <img src="" alt="" />
+            {comentAdd && (
+              <div className="info__comments-add">
+                <div className="info__comments-add_main">
+                  <form
+                    id="lock"
+                    onSubmit={handleSubmit}
+                    className="info__comments-add_content"
+                  >
+                    <div className="info__comments-add_content-items">
+                      <img src={user.map((item) => item.image)} alt="" />
+                      <h2>
+                        {user.map((user) => (
+                          <div key={user.id}>
+                            {user.username},<span>{user.nick}</span>
+                            <input
+                              name="nick"
+                              type="hidden"
+                              onChange={(e) => setNick(e.target.value)}
+                              value={nick}
+                            />
+                            <input
+                              name="username"
+                              type="hidden"
+                              onChange={(e) => setUsername(e.target.value)}
+                              value={username}
+                            />
+                            <input
+                              name="image"
+                              type="hidden"
+                              onChange={(e) => setImage(e.target.value)}
+                              value={image}
+                            />
+                          </div>
+                        ))}
+                      </h2>
+                    </div>
+                    <div className="info__comments-add_content-ash">
+                      <textarea
+                        onChange={(e) => setText(e.target.value)}
+                        value={text}
+                        name="text"
+                        cols="30"
+                        rows="10"
+                        placeholder="Добавьте комментарий"
+                      ></textarea>
+                        <button
+                        form="lock"
+                        type="submit"
+                      >
+                        Добавить
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
