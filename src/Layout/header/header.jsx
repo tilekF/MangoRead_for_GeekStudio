@@ -1,15 +1,40 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../../assets/header/Logo.svg";
 import { CustomContext } from "../../utils/context";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   const [active, setActive] = useState(false);
-  const { searchQuery, setSearchQuery, registrate, setRegistrate } =
+  const [exit, setExit] = useState(false);
+  const { searchQuery, setSearchQuery, setRegistrate } =
     useContext(CustomContext);
+  const [user, setData] = useState([]);
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("http://localhost:3001/users");
+      const user = await response.json();
+
+      setData(user);
+    }
+    fetchData();
+  }, []);
+
+  const deleteUser = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:3001/users/${userId}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        console.log(`User ${userId} has been deleted`);
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
 
   return (
@@ -64,20 +89,51 @@ const Header = () => {
                 />
               </form>
             </li>
-            <li className="header__nav-inner_login">
-              <button
-                onClick={() => setRegistrate("log")}
-                className="header__nav-inner_login-logIn"
-                type="button"
-              >
-                <Link to="/registrate">Войти</Link>
-              </button>
-              <button
-                className="header__nav-inner_login-registrate"
-                onClick={() => setRegistrate("reg")}
-              >
-                <Link to='./registrate'>Регистрация</Link>
-              </button>
+            {user.length === 0 && (
+              <li className="header__nav-inner_login">
+                <button
+                  onClick={() => setRegistrate("log")}
+                  className="header__nav-inner_login-logIn"
+                  type="button"
+                >
+                  <Link to="/registrate">Войти</Link>
+                </button>
+                <button
+                  className="header__nav-inner_login-registrate"
+                  onClick={() => setRegistrate("reg")}
+                >
+                  <Link to="./registrate">Регистрация</Link>
+                </button>
+              </li>
+            )}
+            <li>
+              {user.length > 0 &&
+                user.map((user) => (
+                  <div key={user.id} className="header__nav-inner_user">
+                    <span className="header__nav-inner_user-name">
+                      {user.username}
+                    </span>
+                    <img
+                      src={user.image}
+                      alt="User avatar"
+                      className="header__nav-inner_user-avatar"
+                    />
+                    <a
+                      onClick={() => setExit(!exit)}
+                      style={{  
+                        transform: `${exit ? "rotate( -90deg)" : "rotate(0)"}`,
+                      }}
+                    ></a>
+                    <form
+                      style={{
+                        display: `${exit ? "block" : "none"}`,
+                        right: `${exit ? "50px" : "0"}`,
+                      }}
+                    >
+                      <button onClick={() => deleteUser(1)} type="submit">Выход</button>
+                    </form>
+                  </div>
+                ))}
             </li>
           </ul>
         </nav>
