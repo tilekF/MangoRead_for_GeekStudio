@@ -108,7 +108,7 @@ const Catalog = () => {
             </div>
           </div>
           <div className="catalog__inner-blocks">
-            <Card key={products.id} products={products} />  
+            <Card key={products.id} products={products} />
           </div>
         </div>
         <div className="catalog__selectore">

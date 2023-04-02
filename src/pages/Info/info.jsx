@@ -11,9 +11,13 @@ const Info = ({ products }) => {
   const [nick, setNick] = useState("");
   const [username, setUsername] = useState("");
   const [image, setImage] = useState("");
+  const maxItemsToShow = 3;
+  const [currentPage, setCurrentPage] = useState(1);
+  const startIndex = (currentPage - 1) * maxItemsToShow;
+  const endIndex = startIndex + maxItemsToShow;
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const response = await fetch("http://localhost:3001/comments", {
         method: "POST",
@@ -29,11 +33,11 @@ const Info = ({ products }) => {
       });
       const data = await response.json();
       console.log("Comment added:", data);
-      setComentAdd(!comentAdd)
+      setComentAdd(!comentAdd);
       setUsername("");
       setNick("");
       setText("");
-      setImage("")
+      setImage("");
     } catch (error) {
       console.error("Comment failed:", error);
     }
@@ -58,6 +62,18 @@ const Info = ({ products }) => {
     }
     fetchData();
   }, []);
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (endIndex < coment.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   try {
     const regex = /(<([^>]+)>)/gi;
@@ -110,7 +126,7 @@ const Info = ({ products }) => {
                   : "добавить комментарий"}
               </button>
             </div>
-            {coment.map((user) => (
+            {coment.slice(startIndex, endIndex).map((user) => (
               <div key={user.id} className="info__comments-com">
                 <img src={user.img} alt="Photo" />
                 <div className="info__comments-com_texts">
@@ -166,10 +182,7 @@ const Info = ({ products }) => {
                         rows="10"
                         placeholder="Добавьте комментарий"
                       ></textarea>
-                        <button
-                        form="lock"
-                        type="submit"
-                      >
+                      <button form="lock" type="submit">
                         Добавить
                       </button>
                     </div>
@@ -177,6 +190,39 @@ const Info = ({ products }) => {
                 </div>
               </div>
             )}
+            <div className="info__comments-paginate">
+              <div className="info__comments-paginate_selectore">
+                <button
+                  className="info__comments-paginate_selectore-left"
+                  onClick={handlePrevPage}
+                  disabled={currentPage === 1}
+                  type="button"
+                ></button>
+                <span
+                  style={{ display: `${currentPage !== 1 ? "block" : "none"}` }}
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                >{`${currentPage !== 1 ? currentPage - 1 : ""}`}</span>
+                <span className="info__comments-paginate_selectore-active">
+                  {currentPage}
+                </span>
+                <span
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                  style={{
+                    display: `${endIndex >= coment.length ? "none" : "block"}`,
+                  }}
+                >
+                  {`${endIndex >= coment.length ? "" : currentPage + 1}`}
+                </span>
+                <span>...</span>
+                <span>99+</span>
+                <button
+                  className="info__comments-paginate_selectore-right"
+                  onClick={handleNextPage}
+                  disabled={endIndex >= coment.length}
+                  type="button"
+                ></button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
