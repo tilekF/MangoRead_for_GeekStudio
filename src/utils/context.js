@@ -42,11 +42,6 @@ const Context = (props) => {
     setCheckboxes({ ...checkboxes, [value]: !checkboxes[value] });
   };
 
-  const selectedCheckboxes = Object.entries(checkboxes)
-    .filter(([key, value]) => value)
-    .map(([key]) => key)
-    .join(",");
-
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);

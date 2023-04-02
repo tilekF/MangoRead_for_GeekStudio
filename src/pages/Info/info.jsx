@@ -5,6 +5,7 @@ import defaultImage from "../../assets/error/error.jpg";
 
 const Info = ({ products }) => {
   const [user, setData] = useState([]);
+  const [coment, setComent] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -15,6 +16,16 @@ const Info = ({ products }) => {
     }
     fetchData();
   }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("http://localhost:3001/users");
+      const user = await response.json();
+
+      setData(user);
+    }
+    fetchData();
+  }, [user]);
 
   try {
     const regex = /(<([^>]+)>)/gi;
@@ -38,9 +49,9 @@ const Info = ({ products }) => {
             <div className="info__head-desc">
               <h3>{products.ru_name}</h3>
               <h2>Информация:</h2>
-              <p>
+              <a>
                 Тип: <span>{products.type}</span>
-              </p>
+              </a>
               <p>
                 Год: <span>{products.issue_year}</span>
               </p>
@@ -56,11 +67,28 @@ const Info = ({ products }) => {
             </p>
           </div>
           <div className="info__comments">
+            <div className="info__comments-top">
+              <h2>Топ комментарий</h2>
+              <a>добавить комментарий</a>
+            </div>
             {user.map((user) => (
-              <div>
-                <h2>{user.text}</h2>
+              <div key={user.id} className="info__comments-com">
+                <img src={user.img} alt="Photo" />
+                <div className="info__comments-com_texts">
+                  <h2>
+                    {user.name}, {user.nick}
+                  </h2>
+                  <p>{user.text}</p>
+                </div>
               </div>
             ))}
+            <div>
+              <div>
+                <div>
+                  <img src="" alt="" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
