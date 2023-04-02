@@ -84,6 +84,7 @@ const Registrate = () => {
                     type="file"
                     placeholder="Выберите фото"
                     onChange={handleImageChange}
+                    required
                   />
                   <span>ДОБАВИТЬ ФОТО</span>
                 </label>
@@ -94,18 +95,21 @@ const Registrate = () => {
                   placeholder="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  required
                 />
                 <input
                   type="text"
                   placeholder="Nickname"
                   value={nick}
                   onChange={(e) => setNick(e.target.value)}
+                  required
                 />
                 <input
                   type="password"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
                 <button type="submit">регистрация</button>
               </div>
@@ -120,10 +124,12 @@ const Registrate = () => {
                 <input
                   type="text"
                   placeholder="Username"
+                  required
                 />
                 <input
                   type="password"
                   placeholder="Password"
+                  required
                 />
                 <button type="submit">Вход</button>
               </div>
