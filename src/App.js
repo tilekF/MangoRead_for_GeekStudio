@@ -1,10 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import Layout from "./Layout/layout";
+import Layout from './pages/FooterAndHeader/layout'
 import Home from "./pages/home/home";
-import "./scss/style.scss";
-import Info from "./pages/Info/info";
+import "./assets/css/style.css";
 import MakeInfo from "./pages/Info/makeInfo";
-import Registrate from "./pages/Registrate/registrate";
+import Registration from "./pages/Registration/registration";
 
 function App() {
   return (
@@ -20,8 +19,8 @@ function App() {
           element={<MakeInfo/>}
           />
           <Route
-          path="/registrate"
-          element={<Registrate/>}
+          path="/registration"
+          element={<Registration/>}
           />
         </Route>
       </Routes>

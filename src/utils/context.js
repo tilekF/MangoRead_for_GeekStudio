@@ -14,7 +14,7 @@ const Context = (props) => {
   const endIndex = startIndex + maxItemsToShow;
   const [searchQuery, setSearchQuery] = useState("");
   const [checkboxes, setCheckboxes] = useState({});
-  const [registrate, setRegistrate] = useState("log");
+  const [registration, setRegistration] = useState("log");
 
   const getProducts = () => {
     axios(
@@ -56,7 +56,7 @@ const Context = (props) => {
 
   const value = {
     getProfile,
-    setRegistrate,
+    setRegistration,
     setProfile,
     setCheckboxes,
     setSearchQuery,
@@ -68,9 +68,9 @@ const Context = (props) => {
     setPage,
     setGenre,
     getProducts,
+    registration,
     profile,
     checkboxes,
-    registrate,
     searchQuery,
     startIndex,
     maxItemsToShow,
@@ -89,4 +89,3 @@ const Context = (props) => {
 };
 
 export default Context;
-//http://134.122.75.14:8666/api/v1/manga
